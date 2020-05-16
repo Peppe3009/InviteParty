@@ -1,0 +1,15 @@
+Account Pr
+    email: ventrone524@gmail.com
+    pass: napoli
+    codice: o1I51tri
+Account Admin
+    email: sihol19888@zaelmo.com
+    pass: admin1
+    codice: GC5y8T9K
+Account User
+    email: tawih45045@toracw.com
+    pass: user1
+    codice: s7u5c0pP
+    email: cerob41675@zaelmo.com
+    pass: user2
+    codice: d2JL3D8R

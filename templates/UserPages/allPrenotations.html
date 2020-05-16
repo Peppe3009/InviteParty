@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Prenotations</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+</head>
+<body bgcolor="#cfd8dc">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/UserProfile" class="brand-logo">InviteParty<sub style="vertical-align: sub; font-size: small;">UserProfile</sub></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/showEvent">Visualizza Eventi</a></li>
+                <li><a href="/allPrenotations">Visualizza Prenotazioni</a></li>
+                <li><a href="/UserProfile">Profilo</a></li>
+                <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="card">
+    <div class="card-content">
+        <div class="container" style="text-align: left">
+            <div class="input-field col s6">
+                <span style="text-align: center" class="card-title">Le tue Prenotazioni</span>
+                {% autoescape false %}
+                {% if prenotazioni | length == 0 %}
+                    <p><i class="material-icons left">error_outline</i>Non ci sono prenotazioni</p>
+                {% else %}
+                    <div class="row">
+                        <div id = "allqrcode">
+                        </div>
+                    </div>
+                {% endif %}
+                {% endautoescape %}
+
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="side-nav" id="mobile-demo">
+    <li><a href="/showEvent">Visualizza Eventi</a></li>
+    <li><a href="/allPrenotations">Visualizza Prenotazioni</a></li>
+    <li><a href="/UserProfile">Profilo</a></li>
+    <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+</ul>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+        loadQrCodes();
+
+    });
+    function loadQrCodes() {
+
+        {% for item in prenotazioni %}
+            var p = [];
+            var nome = "{{ item['nomeInvitato'] }}";
+            var cognome = "{{ item['cognomeInvitato'] }}";
+            var giornoEvento = "{{ item['giornoEvento'] }}";
+            var oraEvento = "{{ item['oraEvento' ]}}";
+            var nomeEvento = "{{ item['nomeEvento']}}";
+            var nomeLocale = "{{ item['nomeLocale'] }}";
+            p.push(nome, cognome, giornoEvento, oraEvento, nomeEvento, nomeLocale);
+            var element = document.createElement('div');
+            element.setAttribute('class', 'col s12 m6');
+            var stringa = 'qrcode' + {{ loop.index }};
+            element.innerHTML = `
+                  <div class="card blue-grey darken-1" style="text-align: center">
+        <div class="card-content white-text">
+          <span class="card-title">${nomeEvento}</span>
+          <div style="text-align: left">
+            <b>Dove </b> | ${nomeLocale}<br>
+            <b>Quando</b> | ${giornoEvento}<br>
+            <b>A che ora </b> | ${oraEvento}<br>
+           </div>
+           <div  id=${stringa}></div>
+        </div>
+      </div>`;
+            $('#allqrcode').append(element);
+            $("#qrcode"+{{ loop.index}}).qrcode({
+                width: 200,
+                height: 200,
+                text:nome+"-"+cognome+"-"+giornoEvento+"-"+nomeEvento
+            });
+        {% endfor %}
+    }
+</script>
+</html>

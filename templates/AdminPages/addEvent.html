@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Event</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+</head>
+<body bgcolor="#cfd8dc">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/AdminProfile" class="brand-logo">InviteParty<sub style="vertical-align: sub; font-size: small;">AdminProfile</sub></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/addEvent">Aggiungi Evento</a></li>
+                <li><a href="/showStatistic">Statistiche eventi</a></li>
+                <li><a href="/handleEvent">Gestisci Eventi</a></li>
+                <li><a href="/addLocale">Aggiungi Locale</a></li>
+                <li><a href="/AdminProfile">Profilo</a></li>
+                <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<form method="POST">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title" style="text-align: center">Aggiungi Evento</span>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label>Nome Evento</label>
+                                <input name="nomeEvento" type="text"required>
+                            </div>
+                            {% autoescape false %}
+                            {{ messaggio }}
+                            {% endautoescape %}
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label>Data Evento </label>
+                                <input name="giornoEvento" type="text"  class="datepicker" required>
+                            </div>
+                            <div class="input-field col s6">
+                                <label>Orario Evento </label>
+                                <input name="inizioEvento" type="text"  class="timepicker" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label>Tipo di Evento </label>
+                                <input id="tipoEvento" name="tipoEvento" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label>Numero Invitati </label>
+                                <input id="numeroInvitati" name="numeroInvitati" type="number" required>
+                            </div>
+                            <div class="input-field col s6">
+                                <select name="nomeLocale">
+                                    <option value="" disabled selected></option>
+                                    {% for i in risultato %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label>Nome Locale</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    <button class="btn waves-effect waves-light" type="submit">Aggiungi Evento<i class="material-icons right">send</i></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+
+
+<ul class="side-nav" id="mobile-demo">
+    <li><a href="/addEvent">Aggiungi Evento</a></li>
+    <li><a href="/showStatistic">Statistiche Eventi</a></li>
+    <li><a href="/handleEvent">Gestisci Eventi</a></li>
+    <li><a href="/addLocale">Aggiungi Locale</a></li>
+    <li><a href="/AdminProfile">Profilo</a></li>
+    <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+</ul>
+</body>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+        $('select').material_select();
+        $('.timepicker').pickatime({
+            twelvehour: false,
+            format: "HH:ii",
+            close : "Ok"
+
+        });
+        $('.datepicker').pickadate({
+            monthsFull : ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+            monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Sett', 'Ott', 'Nov', 'Dic'],
+            weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+            weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+            weekdaysLetter:['D', 'L', 'M', 'M', 'G', 'V', 'S'],
+            firstDay: 1,
+            closeOnSelect: false,
+            today: 'Oggi',
+            clear: 'Azzera',
+            close: 'Ok'});
+    });
+    $('.datepicker').on('mousedown',function(event){
+        event.preventDefault();
+    });
+    $('.timepicker').on('mousedown',function(event){
+        event.preventDefault();
+    });
+
+</script>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Locale</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+</head>
+<body bgcolor="#cfd8dc">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/AdminProfile" class="brand-logo">InviteParty<sub style="vertical-align: sub; font-size: small;">AdminProfile</sub></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/addEvent">Aggiungi Evento</a></li>
+                <li><a href="/showStatistic">Statistiche eventi</a></li>
+                <li><a href="/handleEvent">Gestisci Eventi</a></li>
+                <li><a href="/addLocale">Aggiungi Locale</a></li>
+                <li><a href="/AdminProfile">Profilo</a></li>
+                <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<form method="post">
+    <div class="container" style="width:350px; height: 350px; margin:0 auto;">
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Aggiungi Locale</span>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="newlocale" name="newlocale" placeholder="Nome Locale" type="text"
+                                               class="validate" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div style="text-align: center">
+                                <button class="btn waves-effect waves-light" type="submit">Aggiungi Locale<i
+                                        class="material-icons left">add</i></button>
+                            </div>
+                            <div>
+                                {% autoescape false %}
+                                {{ messaggio }}
+                                {% endautoescape %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+
+<ul class="side-nav" id="mobile-demo">
+    <li><a href="/addEvent">Aggiungi Evento</a></li>
+    <li><a href="/showStatistic">Statistiche Eventi</a></li>
+    <li><a href="/handleEvent">Gestisci Eventi</a></li>
+    <li><a href="/addLocale">Aggiungi Locale</a></li>
+    <li><a href="/AdminProfile">Profilo</a></li>
+    <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+</ul>
+</body>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    });
+</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Become Pr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+   <script type="text/javascript" src="{{ url_for('static', filename='javascript/addPr.js') }}"></script>
+</head>
+<body bgcolor="#cfd8dc">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+
+            <a href="/PRProfile" class="brand-logo">InviteParty<sub style="vertical-align: sub; font-size: small;">PrProfile</sub></a>
+
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/becomePr">Diventa PR</a></li>
+                   <li><a href="/prenotationsList">Controlla Lista</a></li>
+                <li><a href="/PRProfile">Profilo</a></li>
+                <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <div class="container" style="text-align: left">
+            <div class="input-field col s6">
+                <span style="text-align: center" class="card-title">Diventa PR</span>
+
+                {% if eventi | length == 0 %}
+                     <p><i class="material-icons left">error_outline</i>Non ci sono eventi da visualizzare</p>
+                {% else %}
+
+                    <ul class="collection">
+                        {% for evento in eventi %}
+                            <li class="collection-item" id="item{{ loop.index }}">
+                                <p class="flow-text" style="font-size: medium" id="nomeEvento{{ loop.index }}"><b>Nome Evento</b> |  {{ evento['nomeEvento'] }}</p><br>
+                                <p class="flow-text" style="font-size: medium" id="nomeLocale{{ loop.index }}"><b>Locale Evento</b> |  {{ evento['nomeLocale'] }}</p><br>
+                                <p class="flow-text" style="font-size: medium" id="giornoEvento{{loop.index }}"><b>Giorno Evento</b> | {{ evento['giornoEvento'] }}</p><br>
+                                <button class="btn waves-effect waves-light secondary-content" onclick="addPr({{ loop.index }})">Diventa PR
+                                    <i class="material-icons right">send</i>
+                                </button>
+                                <p class="flow-text" style="font-size: medium" id="oraEvento{{loop.index }}"><b>Orario Evento</b> |  {{ evento['oraEvento'] }}</p><br>
+                                <p class="flow-text" style="font-size: medium"><b>Tipo di Evento</b> |  {{ evento['tipoEvento'] }}</p><br>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<ul class="side-nav" id="mobile-demo">
+    <li><a href="/becomePr">Diventa PR</a></li>
+    <li><a href="/prenotationsList">Controlla Lista</a></li>
+    <li><a href="/PRProfile">Profilo</a></li>
+    <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+
+</ul>
+</body>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    });
+
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+</head>
+<body bgcolor="#cfd8dc">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/UserProfile" class="brand-logo">InviteParty<sub style="vertical-align: sub; font-size: small;">UserProfile</sub></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/showEvent">Visualizza Eventi</a></li>
+                <li><a href="/allPrenotations">Visualizza Prenotazioni</a></li>
+                <li><a href="/UserProfile">Profilo</a></li>
+                <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="card">
+    <div class="card-content">
+        <div class="container" style="text-align: left">
+            <div class="input-field col s6">
+                <span style="text-align: center" class="card-title">Profile Info</span>
+                <ul class="collection with-header">
+                    <p class="flow-text" style="font-size: medium"><b>Nome</b> |  {{ nome }}</p><br>
+                    <p class="flow-text" style="font-size: medium"><b>Cognome</b> | {{ cognome }}</p><br>
+                    <p class="flow-text" style="font-size: medium"><b>Email</b> | {{ email }}</p><br>
+                    <p class="flow-text" style="font-size: medium"><b>Livello Account</b> | {{ level }}</p><br>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ul class="side-nav" id="mobile-demo">
+
+    <li><a href="/showEvent">Visualizza Eventi</a></li>
+    <li><a href="/allPrenotations">Visualizza Prenotazioni</a></li>
+    <li><a href="/UserProfile">Profilo</a></li>
+    <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+
+</ul>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    });
+
+</script>
+</html>

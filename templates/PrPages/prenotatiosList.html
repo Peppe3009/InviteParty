@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prenotations List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/scarica.js') }}"></script>
+
+
+</head>
+<body bgcolor="#cfd8dc">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+
+            <a href="/PRProfile" class="brand-logo">InviteParty<sub style="vertical-align: sub; font-size: small;">PrProfile</sub></a>
+
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/becomePr">Diventa PR</a></li>
+                <li><a href="/prenotationsList">Controlla Lista</a></li>
+                <li><a href="/PRProfile">Profilo</a></li>
+                <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<div class="card">
+    <div class="card-content">
+        <div class="container" style="text-align: left">
+            <div class="row">
+                <div class="input-field col s12 m4">
+                    {% if risultato | length == 0 %}
+                        <p><i class="material-icons left">error_outline</i>Non ci sono eventi</p>
+                    {% else %}
+                        <select id="nomeEvento" onchange="loadList()">
+                            <option value="" disabled selected></option>
+                            {% for i in risultato %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <label> Nome Evento</label>
+                        </div>
+                    {% endif %}
+
+                <div id="qrDiv" class="input-field col s12 m12" style="text-align: center; display: none">
+                    <a class="waves-effect waves-light btn modal-trigger" style="border-radius: 20px;" href="#modal1">Check
+                        QrCode!</a>
+                </div>
+                <table id="nomi" class="centered">
+                    <thead id="th">
+
+                    </thead>
+                    <tbody id="tb">
+                    </tbody>
+                </table>
+                <div id="downloadDiv" class="input-field col s12 m12" style="text-align: center; display: none">
+                    <a class="waves-effect waves-light btn" style="border-radius: 20px" onclick="scarica()">Scarica
+                        elenco PDF</a>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Inquadra il Qr-Code</h4>
+        <video id="preview" style="width: 400px"></video>
+
+    </div>
+
+</div>
+
+
+<ul class="side-nav" id="mobile-demo">
+    <li><a href="/becomePr">Diventa PR</a></li>
+    <li><a href="/prenotationsList">Controlla Lista</a></li>
+    <li><a href="/PRProfile">Profilo</a></li>
+    <li><a href="/"><i class="material-icons right">exit_to_app</i>Logout</a></li>
+
+</ul>
+</body>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+        integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.13/jspdf.plugin.autotable.min.js"
+        crossorigin="anonymous"></script>
+
+<script>
+    let scanner = new Instascan.Scanner({video: document.getElementById('preview')});
+    $(document).ready(function () {
+
+        $(".button-collapse").sideNav();
+        $('select').material_select();
+
+        $('.modal').modal({
+            ready: function () {
+                scanner.addListener('scan', function (content) {
+                    if (checkPrenotation(content)) {
+
+                        Materialize.Toast.removeAll();
+                        $('#modal1').modal('close');
+                        Materialize.toast('Presenza Confermata!', 2500, 'green');
+                    } else {
+                        Materialize.Toast.removeAll();
+                        $('#modal1').modal('close');
+                        Materialize.toast('Presenza Non Confermata!', 2500, 'red');
+                    }
+                });
+                Instascan.Camera.getCameras().then(function (cameras) {
+                    if (cameras.length > 0) {
+                        console.log(cameras);
+                        scanner.start(cameras[0]);
+                    } else {
+                        console.error('No cameras found.');
+                    }
+                }).catch(function (e) {
+                    console.error(e);
+                });
+            },
+            complete: function () {
+                scanner.stop();
+            }
+        });
+    });
+    var prenotazioni = [];
+
+    function loadList() {
+        $('#th').empty();
+        $('#tb').empty();
+        prenotazioni = [];
+        var nomeEvento = $('#nomeEvento').val();
+        $.ajax({
+            url: '/getPrenotations',
+            type: 'GET',
+            async: false,
+            data: {nomeEvento: nomeEvento},
+            success: function (response) {
+                if (response.length !== 0) {
+                    for (var i = 0; i < response.length; i++) {
+                        var invitato = {
+                            nomeEvento: nomeEvento,
+                            nome: response[i].nomeInvitato,
+                            cognome: response[i].cognomeInvitato
+                        };
+                        prenotazioni.push(invitato)
+                    }
+                    handleData();
+                }
+            }
+        });
+    }
+
+    function handleData() {
+        console.log("handle")
+        console.log(prenotazioni);
+        var tr = document.createElement('tr');
+        tr.innerHTML = `<th>Nome</th><th>Cognome</th>`;
+        $('#th').append(tr);
+        for (var i = 0; i < prenotazioni.length; i++) {
+            var tr = document.createElement('tr');
+            tr.innerHTML = `<td>${prenotazioni[i].nome}</td><td>${prenotazioni[i].cognome}</td>`
+            $('#tb').append(tr);
+        }
+        $('#qrDiv').show();
+        $('#downloadDiv').show();
+
+
+    }
+
+    function checkPrenotation(content) {
+        var dic = {
+            'Gennaio': "Jenuary",
+            'Febbraio': "February",
+            'Marzo': "March",
+            'Aprile': "April",
+            'Maggio': "May",
+            'Giugno': "June",
+            'Luglio': "July",
+            'Agosto': "August",
+            'Settembre': "September",
+            'Ottobre': "October",
+            'Novembre': "November",
+            'Dicembre': "December"
+        }
+
+        content = content.split('-');
+        if (content.length > 1) {
+            for (var i = 0; i < prenotazioni.length; i++) {
+                var nomeEvento = prenotazioni[i].nomeEvento;
+                var nome = prenotazioni[i].nome;
+                var cognome = prenotazioni[i].cognome;
+                var oggi = new Date();
+                var data = content[2].split(" ");
+                data[1] = data[1].slice(0, -1);
+                data[1] = dic[data[1]];
+                var dataEvento = new Date(data.join(" "));
+                if (oggi <= dataEvento) {
+                    if (content[0] === nome && content[1] === cognome && content[3] === nomeEvento) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+</script>
+</html>

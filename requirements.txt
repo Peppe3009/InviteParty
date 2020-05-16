@@ -1,0 +1,4 @@
+flask
+Flask-Mail
+Flask-PyMongo
+Flask-Session

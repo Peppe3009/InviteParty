@@ -1,0 +1,21 @@
+{
+  "name" : "Invite Party",
+  "short_name" : "Invite Party",
+  "start_url" : "/",
+  "background_color" : "#FFFFFF",
+  "theme_color" : "#F16C71",
+  "orientation" : "portrait-primary",
+  "display" : "standalone",
+  "icons" : [
+    {
+      "src": "/static/icons/android-icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icons/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
