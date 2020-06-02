@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>SignUp</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
 <body bgcolor="#cfd8dc">
 <form method="post">
@@ -21,46 +22,53 @@
                             <div class="col s12">
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input placeholder="Nome" id="nome" name="nome" type="text" class="validate" required>
+                                        <input placeholder="Nome" id="nome" name="nome" type="text" class="validate"
+                                               required>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="cognome" type="text" name="cognome" class="validate" placeholder="Cognome" required>
+                                        <input id="cognome" type="text" name="cognome" class="validate"
+                                               placeholder="Cognome" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="email" name="email" type="email" placeholder="Email" class="validate">
+                                        <input id="email" name="email" type="email" placeholder="Email"
+                                               class="validate">
                                         <span class="helper-text" data-error="Email non valida"></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="password" name="password" placeholder="Password" type="password" class="validate" required>
+                                        <input id="password" name="password" placeholder="Password" type="password"
+                                               class="validate" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <label>
-                                            <p> Tipo Account: <br> </p>
-                                            <input name="levelUser" id="admin" value="Admin" type="radio" class="with-gap" />
+                                            <p> Tipo Account: <br></p>
+                                            <input name="levelUser" id="admin" value="Admin" type="radio"
+                                                   class="with-gap"/>
                                             <span>Admin</span>
                                         </label><br>
                                         <label>
-                                            <input name="levelUser" id="pr" value="PR" type="radio" class="with-gap" />
+                                            <input name="levelUser" id="pr" value="PR" type="radio" class="with-gap"/>
                                             <span>PR</span>
                                         </label><br>
                                         <label>
-                                            <input name="levelUser" id="user" value="User" type="radio" class="with-gap" />
+                                            <input name="levelUser" id="user" value="User" type="radio"
+                                                   class="with-gap"/>
                                             <span>User</span>
                                         </label>
                                         <div class="input-field col s12" id="divA" style="display: none">
-                                            <input type="text" name="locale" placeholder="Nome locale" >
+                                            <input type="text" name="locale" placeholder="Nome locale">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="text-align: center">
-                                <button class="btn waves-effect waves-light" type="submit">Registrati<i class="material-icons right">send</i></button>
+                                <button class="btn waves-effect waves-light" type="submit">Registrati<i
+                                        class="material-icons right">send</i></button>
                             </div>
                             <blockquote>
                                 Sei già registrato? <a href="/">Accedi!</a>
@@ -74,7 +82,8 @@
     </div>
 </form>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 <script>
@@ -82,7 +91,7 @@
         $("input[name='levelUser']").click(function () {
             if ($("#admin").is(":checked")) {
                 $("#divA").show()
-            }else{
+            } else {
                 $("#divA").hide()
             }
         })

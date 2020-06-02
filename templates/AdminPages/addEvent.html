@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
 <body bgcolor="#cfd8dc">
 <div class="navbar-fixed">
@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <label>Nome Evento</label>
-                                <input name="nomeEvento" type="text"required>
+                                <input name="nomeEvento" type="text" required>
                             </div>
                             {% autoescape false %}
                             {{ messaggio }}
@@ -45,11 +45,11 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <label>Data Evento </label>
-                                <input name="giornoEvento" type="text"  class="datepicker" required>
+                                <input name="giornoEvento" type="text" class="datepicker" required>
                             </div>
                             <div class="input-field col s6">
                                 <label>Orario Evento </label>
-                                <input name="inizioEvento" type="text"  class="timepicker" required>
+                                <input name="inizioEvento" type="text" class="timepicker" required>
                             </div>
                         </div>
                         <div class="row">
@@ -76,7 +76,8 @@
                     </div>
                 </div>
                 <div style="text-align: center">
-                    <button class="btn waves-effect waves-light" type="submit">Aggiungi Evento<i class="material-icons right">send</i></button>
+                    <button class="btn waves-effect waves-light" type="submit">Aggiungi Evento<i
+                            class="material-icons right">send</i></button>
                 </div>
 
             </div>
@@ -84,7 +85,6 @@
     </div>
     </div>
 </form>
-
 
 
 <ul class="side-nav" id="mobile-demo">
@@ -99,7 +99,8 @@
 
 
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -108,25 +109,26 @@
         $('.timepicker').pickatime({
             twelvehour: false,
             format: "HH:ii",
-            close : "Ok"
+            close: "Ok"
 
         });
         $('.datepicker').pickadate({
-            monthsFull : ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+            monthsFull: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Sett', 'Ott', 'Nov', 'Dic'],
             weekdaysFull: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
             weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
-            weekdaysLetter:['D', 'L', 'M', 'M', 'G', 'V', 'S'],
+            weekdaysLetter: ['D', 'L', 'M', 'M', 'G', 'V', 'S'],
             firstDay: 1,
             closeOnSelect: false,
             today: 'Oggi',
             clear: 'Azzera',
-            close: 'Ok'});
+            close: 'Ok'
+        });
     });
-    $('.datepicker').on('mousedown',function(event){
+    $('.datepicker').on('mousedown', function (event) {
         event.preventDefault();
     });
-    $('.timepicker').on('mousedown',function(event){
+    $('.timepicker').on('mousedown', function (event) {
         event.preventDefault();
     });
 

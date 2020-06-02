@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
 <body bgcolor="#cfd8dc">
 <div class="navbar-fixed">
@@ -28,14 +28,13 @@
 </div>
 
 
-
 <div class="card">
     <div class="card-content">
         <div class="container" style="text-align: left">
             <div class="input-field col s6">
                 <span style="text-align: center" class="card-title">Profile Info</span>
                 <ul class="collection with-header">
-                    <p class="flow-text" style="font-size: medium"><b>Nome</b> |  {{ nome }}</p><br>
+                    <p class="flow-text" style="font-size: medium"><b>Nome</b> | {{ nome }}</p><br>
                     <p class="flow-text" style="font-size: medium"><b>Cognome</b> | {{ cognome }}</p><br>
                     <p class="flow-text" style="font-size: medium"><b>Email</b> | {{ email }}</p><br>
                     <p class="flow-text" style="font-size: medium"><b>Livello Account</b> | {{ level }}</p><br>
@@ -55,10 +54,6 @@
 </div>
 
 
-
-
-
-
 <ul class="side-nav" id="mobile-demo">
     <li><a href="/becomePr">Diventa PR</a></li>
     <li><a href="/prenotationsList">Controlla Lista</a></li>
@@ -70,7 +65,8 @@
 
 
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {

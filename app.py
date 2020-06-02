@@ -54,7 +54,7 @@ def login_view():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup_view():
     if request.method == 'POST':
-        print("qua va bene")
+
         nome = request.form['nome'].capitalize()
         cognome = request.form['cognome'].capitalize()
         password = codifica(request.form['password'])
@@ -62,7 +62,7 @@ def signup_view():
         level = request.form['levelUser']
         locale = request.form['locale']
         codice = stringa_random()
-
+        
         msg = Message(subject='Username per registrazione',
                       recipients=[email],
                       body="Codice univoco di " + nome + " " + cognome + " : " + codice,

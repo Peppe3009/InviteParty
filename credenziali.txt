@@ -1,7 +1,7 @@
 Account Pr
     email: ventrone524@gmail.com
     pass: napoli
-    codice: o1I51tri
+    codice: o7698jRI
 Account Admin
     email: sihol19888@zaelmo.com
     pass: admin1
