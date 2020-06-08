@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, jsonify
+from flask import Flask, render_template, request, redirect, session, jsonify, current_app
 from flask_mail import Message, Mail
 from datetime import datetime
 import locale
@@ -374,6 +374,8 @@ def all_prenotations_view():
                 all_prenotations.append(item)
     return render_template('UserPages/allPrenotations.html', prenotazioni=all_prenotations)
 
-
+@app.route('/sw.js', methods=['GET'])
+def sw():
+    return app.send_static_file('sw.js')
 if __name__ == '__main__':
     app.run(debug=True)
