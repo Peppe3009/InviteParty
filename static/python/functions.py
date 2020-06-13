@@ -16,12 +16,12 @@ KEY = "notSoSecret"
 def stringa_random():
     alphabet = string.ascii_letters + string.digits
     while True:
-        password = ''.join(secrets.choice(alphabet) for i in range(8))
+        password = ''.join(secrets.choice(alphabet) for i in range(5))
         if (any(c.islower() for c in password)
                 and any(c.isupper() for c in password)
                 and sum(c.isdigit() for c in password) >= 3):
             break
-    return password
+    return password.upper()
 
 
 def codifica(stringa):

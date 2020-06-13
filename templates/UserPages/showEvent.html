@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <script type="text/javascript" src="{{ url_for('static', filename='javascript/addPrenotation.js') }}"></script>
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-152x152.png') }}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body bgcolor="#cfd8dc">
 <div class="navbar-fixed">
@@ -38,13 +40,20 @@
                             <div class="col s12 m6" id="card{{ loop.index }}">
                                 <div class="card blue-grey">
                                     <div class="card-content white-text">
-                                        <span class="card-title" style="text-align: center" id="nomeEvento{{ loop.index }}"> {{ item['nomeEvento'] }}</span>
-                                        <p class="flow-text" style="font-size: medium" id="nomeLocale{{ loop.index }}"><b>Locale Evento</b> |  {{ item['nomeLocale'] }}</p><br>
-                                        <p class="flow-text" style="font-size: medium" id="giornoEvento{{loop.index }}"><b>Giorno Evento</b> | {{ item['giornoEvento'] }}</p><br>
-                                        <p class="flow-text" style="font-size: medium" id="oraEvento{{loop.index }}"><b>Orario Evento</b> |  {{ item['oraEvento'] }}</p><br>
-                                        <p class="flow-text" style="font-size: medium"><b>Tipo di Evento</b> |  {{ item['tipoEvento'] }}</p><br>
+                                        <span class="card-title" style="text-align: center"
+                                              id="nomeEvento{{ loop.index }}"> {{ item['nomeEvento'] }}</span>
+                                        <p class="flow-text" style="font-size: medium" id="nomeLocale{{ loop.index }}">
+                                            <b>Locale Evento</b> | {{ item['nomeLocale'] }}</p><br>
+                                        <p class="flow-text" style="font-size: medium"
+                                           id="giornoEvento{{ loop.index }}"><b>Giorno Evento</b>
+                                            | {{ item['giornoEvento'] }}</p><br>
+                                        <p class="flow-text" style="font-size: medium" id="oraEvento{{ loop.index }}">
+                                            <b>Orario Evento</b> | {{ item['oraEvento'] }}</p><br>
+                                        <p class="flow-text" style="font-size: medium"><b>Tipo di Evento</b>
+                                            | {{ item['tipoEvento'] }}</p><br>
                                         <div style="text-align: right">
-                                            <a class="btn-floating btn-large waves-effect waves-light red" onclick="prenota({{ loop.index }})"><i class="material-icons">add</i></a>
+                                            <a class="btn-floating btn-large waves-effect waves-light red"
+                                               onclick="prenota({{ loop.index }})"><i class="material-icons">add</i></a>
                                         </div>
 
                                     </div>
@@ -68,7 +77,8 @@
 
 </body>
 <script type="text/javascript" src="../static/javascript/app.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {

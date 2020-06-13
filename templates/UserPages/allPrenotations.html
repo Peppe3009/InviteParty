@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-152x152.png') }}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body bgcolor="#cfd8dc">
 <div class="navbar-fixed">
@@ -33,7 +35,7 @@
                     <p><i class="material-icons left">error_outline</i>Non ci sono prenotazioni</p>
                 {% else %}
                     <div class="row">
-                        <div id = "allqrcode">
+                        <div id="allqrcode">
                         </div>
                     </div>
                 {% endif %}
@@ -52,7 +54,8 @@
 
 </body>
 <script type="text/javascript" src="../static/javascript/app.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 
@@ -62,6 +65,7 @@
         loadQrCodes();
 
     });
+
     function loadQrCodes() {
 
         {% for item in prenotazioni %}
@@ -78,21 +82,21 @@
             var stringa = 'qrcode' + {{ loop.index }};
             element.innerHTML = `
                   <div class="card blue-grey darken-1" style="text-align: center">
-        <div class="card-content white-text">
-          <span class="card-title">${nomeEvento}</span>
-          <div style="text-align: left">
-            <b>Dove </b> | ${nomeLocale}<br>
-            <b>Quando</b> | ${giornoEvento}<br>
-            <b>A che ora </b> | ${oraEvento}<br>
-           </div>
-           <div  id=${stringa}></div>
-        </div>
-      </div>`;
+                        <div class="card-content white-text">
+                              <span class="card-title">${nomeEvento}</span>
+                              <div style="text-align: left">
+                                <b>Dove </b> | ${nomeLocale}<br>
+                                <b>Quando</b> | ${giornoEvento}<br>
+                                <b>A che ora </b> | ${oraEvento}<br>
+                           </div>
+                          <div  id=${stringa}></div>
+                         </div>
+                    </div>`;
             $('#allqrcode').append(element);
-            $("#qrcode"+{{ loop.index}}).qrcode({
+            $("#qrcode" +{{ loop.index}}).qrcode({
                 width: 200,
                 height: 200,
-                text:nome+"-"+cognome+"-"+giornoEvento+"-"+nomeEvento
+                text: nome + "-" + cognome + "-" + giornoEvento + "-" + nomeEvento
             });
         {% endfor %}
     }
