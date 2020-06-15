@@ -12,9 +12,12 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/Progetto"
 mail = Mail(app)
 mongo = PyMongo(app)
 
+
+
+
 @app.route('/', methods=['GET', 'POST'])
 def login_view():
-    messaggio = ' '
+    status = 0
     if request.method == 'GET':
         session.pop('nome', None)
         session.pop('cognome', None)
@@ -45,10 +48,9 @@ def login_view():
             else:
                 return redirect('/UserProfile')
         else:
-            messaggio = '<div style="text-align:center"><div class="chip" style="background-color:#df405a"><font ' \
-                        'color="white">Errore. Credenziali errate!</font></div></div> '
+            status = 400
 
-    return render_template('LoginPages/LoginPage.html', messaggio=messaggio)
+    return render_template('LoginPages/LoginPage.html', status=status)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -148,8 +150,8 @@ def prenotations_list_view():
             giornoEvento = datetime.strptime(giornoEvento, '%d %B %Y')
             if giornoEvento > datetime.today():
                 eventi.append(i['nomeEvento'])
-        return render_template('PrPages/prenotatiosList.html', risultato=eventi)
-    return render_template('PrPages/prenotatiosList.html', risultato=eventi)
+        return render_template('PrPages/prenotationsList.html', risultato=eventi)
+    return render_template('PrPages/prenotationsList.html', risultato=eventi)
 
 
 @app.route('/getPrenotations', methods=['GET', 'POST'])
@@ -192,7 +194,7 @@ def admin_profile_view():
 
 @app.route('/addEvent', methods=['GET', 'POST'])
 def add_event_view():
-    messaggio = ""
+    status = 0
     temp = []
     if request.method == 'GET':
         email = session['email']
@@ -216,14 +218,13 @@ def add_event_view():
             "nomeLocale": nomeLocale,
             "PR": ""
         })
-        messaggio = '<div style="text-align:center"><div class="chip" style="background-color:#00897b"><font ' \
-                    'color="white">Evento Aggiunto con Successo</font></div></div> '
-    return render_template('AdminPages/addEvent.html', risultato=temp, messaggio=messaggio)
+        status = 200
+    return render_template('AdminPages/addEvent.html', risultato=temp, status=status)
 
 
 @app.route('/addLocale', methods=['GET', 'POST'])
 def add_locale():
-    messaggio = ""
+    status = 0
     if request.method == 'POST':
         newLocale = request.form['newlocale']
         mongo.db.users.insert({"Nome": session['nome'],
@@ -234,9 +235,8 @@ def add_locale():
                                "Account": session['level'],
                                "Locale": newLocale})
 
-        messaggio = '<div style="text-align:center"><div class="chip" style="background-color:#00897b"><font ' \
-                    'color="white">Locale Aggiunto con Successo</font></div></div> '
-    return render_template('AdminPages/addLocale.html', messaggio=messaggio)
+        status = 200
+    return render_template('AdminPages/addLocale.html', status=status)
 
 
 @app.route('/handleEvent', methods=['GET', 'POST'])

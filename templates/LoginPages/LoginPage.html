@@ -6,7 +6,7 @@
 
     <title>loginPage</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-152x152.png') }}">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -50,9 +50,7 @@
                             <blockquote>
                                 Non sei ancora registrato? Clicca <a href="/signup">Qui!</a>
                             </blockquote>
-                            {% autoescape false %}
-                            {{ messaggio }}
-                            {% endautoescape %}
+
                         </div>
                     </div>
                 </div>
@@ -65,4 +63,15 @@
 <script type="text/javascript" src="../static/javascript/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+<script>
+
+    {% if status == 400 %}
+        Materialize.Toast.removeAll();
+        Materialize.toast('Credenziali non valide', 2500, 'red')
+    {% endif %}
+
+
+</script>
 </html>

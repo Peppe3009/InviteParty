@@ -51,9 +51,6 @@
                                         class="material-icons left">add</i></button>
                             </div>
                             <div>
-                                {% autoescape false %}
-                                {{ messaggio }}
-                                {% endautoescape %}
                             </div>
                         </div>
                     </div>
@@ -85,5 +82,11 @@
     $(document).ready(function () {
         $(".button-collapse").sideNav();
     });
+
+     {% if status == 200 %}
+        console.log({{ status }})
+        Materialize.Toast.removeAll();
+        Materialize.toast('Locale Aggiunto', 2500, 'green')
+    {% endif %}
 </script>
 </html>

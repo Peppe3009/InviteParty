@@ -40,9 +40,7 @@
                                 <label>Nome Evento</label>
                                 <input name="nomeEvento" type="text" required>
                             </div>
-                            {% autoescape false %}
-                            {{ messaggio }}
-                            {% endautoescape %}
+
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
@@ -135,6 +133,11 @@
     $('.timepicker').on('mousedown', function (event) {
         event.preventDefault();
     });
+    {% if status == 200 %}
+        console.log({{ status }})
+        Materialize.Toast.removeAll();
+        Materialize.toast('Evento aggiunto', 2500, 'green')
+    {% endif %}
 
 </script>
 </html>
