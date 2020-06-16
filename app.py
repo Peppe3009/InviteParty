@@ -13,8 +13,6 @@ mail = Mail(app)
 mongo = PyMongo(app)
 
 
-
-
 @app.route('/', methods=['GET', 'POST'])
 def login_view():
     status = 0
@@ -56,18 +54,18 @@ def login_view():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup_view():
     if request.method == 'POST':
-
         nome = request.form['nome'].capitalize()
         cognome = request.form['cognome'].capitalize()
-        password = codifica(request.form['password'])
+        password = request.form['password']
         email = request.form['email']
         level = request.form['levelUser']
         locale = request.form['locale']
         codice = stringa_random()
-        
-        msg = Message(subject='Username per registrazione',
+
+        msg = Message(subject='Riepilogo Informazioni Accesso Invite Party',
                       recipients=[email],
-                      body="Codice univoco di " + nome + " " + cognome + " : " + codice,
+                      html="Riepilogo informazioni: <br>" +
+                           "Email: <b>" + email + "</b <br> Password: <b>" + password + "</b><br> Codice: <b>" + codice + "</b>",
                       sender='tecwebprogetto@gmail.com')
         mail.send(msg)
 
@@ -75,7 +73,7 @@ def signup_view():
 
         mongo.db.users.insert({"Nome": nome,
                                "Cognome": cognome,
-                               "Password": password,
+                               "Password": codifica(password),
                                "Email": email,
                                "Codice": codice,
                                "Account": level,
@@ -111,8 +109,6 @@ def pr_profile_view():
 
 @app.route('/becomePr', methods=['POST', 'GET'])
 def become_pr_view():
-
-
     temp = []
     if request.method == 'GET':
         locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
@@ -374,8 +370,11 @@ def all_prenotations_view():
                 all_prenotations.append(item)
     return render_template('UserPages/allPrenotations.html', prenotazioni=all_prenotations)
 
+
 @app.route('/sw.js', methods=['GET'])
 def sw():
     return app.send_static_file('sw.js')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

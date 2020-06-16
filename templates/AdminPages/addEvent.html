@@ -66,6 +66,7 @@
                             <div class="input-field col s6">
                                 <select name="nomeLocale">
                                     <option value="" disabled selected></option>
+                                {{  }}
                                     {% for i in risultato %}
                                         <option value="{{ i }}">{{ i }}</option>
                                     {% endfor %}
@@ -134,7 +135,7 @@
         event.preventDefault();
     });
     {% if status == 200 %}
-        console.log({{ status }})
+
         Materialize.Toast.removeAll();
         Materialize.toast('Evento aggiunto', 2500, 'green')
     {% endif %}
